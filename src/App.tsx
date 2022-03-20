@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Common from "./Components/Common"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Home from "./Pages/Home"
+import Preferences from "./Components/Preferences"
+import { Pages } from "./Pages/Pages"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter
+      basename={process.env.NODE_ENV === "production" ? "/thermomix-v2" : ""}
+    >
+      <Routes>
+        <Route path={Pages.HOME} element={<Common />}>
+          <Route index element={<Home />} />
+          <Route path={Pages.PREFERENCES} element={<Preferences />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
